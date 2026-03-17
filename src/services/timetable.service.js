@@ -1,4 +1,4 @@
-import ApiError from "../utils/ApiError.js";
+import { ApiError } from "../utils/ApiError.js";
 import {
   createTimetableEntry,
   getStudentTimetable,
@@ -6,7 +6,7 @@ import {
   countTodayClasses,
 } from "../models/timetable.model.js";
 
-export const createTimeTableService = async (data) => {
+export const createTimetableService = async (data) => {
     if(!data.subject_id || !data.day_of_week)
         throw new ApiError(400, "Missing required fields")
 

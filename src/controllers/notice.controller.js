@@ -1,10 +1,10 @@
-import asyncHandler from "../utils/asyncHandler.js";
-import ApiResponse from "../utils/ApiResponse.js";
+import { asyncHandler }from "../utils/asyncHandler.js";
+import {ApiResponse }from "../utils/ApiResponse.js";
 
 import {
   createNoticeService,
   getNoticeByIdService,
-  getNoticesService,
+  getNoticesServices,
   deleteNoticeService,
 } from "../services/notice.service.js";
 
@@ -24,7 +24,7 @@ export const getNoticeByIdController = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, notice, "notice fetched successfully"))
 })
 
-export const getNoticedController = asyncHandler(async (req, res) => {
+export const getNoticesController = asyncHandler(async (req, res) => {
     const data = await getNoticesService(req.query)
     res
     .status(200)

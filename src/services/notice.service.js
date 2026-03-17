@@ -1,9 +1,9 @@
-import ApiError from "../utils/ApiError.js"
+import { ApiError } from "../utils/ApiError.js"
 import { getPagination } from "../utils/pagination.js"
 
 import {
   createNotice,
-  getNoticeById,
+  getNoticeByID,
   getFilteredNotices,
   countFilteredNotices,
   deleteNotice,
@@ -18,7 +18,7 @@ export const createNoticeService = async (data) => {
 }
 
 export const getNoticeByIdService = async (id) => {
-  const notice = await getNoticeById(id)
+  const notice = await getNoticeByID(id)
 
   if (!notice)
     throw new ApiError(404, "Notice not found")

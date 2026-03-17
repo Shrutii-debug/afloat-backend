@@ -1,6 +1,6 @@
 import crypto from "crypto";
-import ApiError from "../utils/ApiError.js";
-import { hashPassword, comparePassword } from "../utils/hash.js";
+import { ApiError } from "../utils/ApiError.js";
+import { hashedPassword, comparePassword } from "../utils/hash.js";
 import { generateToken } from "../utils/jwt.js";
 
 import {
@@ -21,7 +21,7 @@ export const registerService = async (data) => {
     if(existing)
         throw new ApiError(400, "Email already registered")
 
-    const hashed = await hashPassword(data.password)
+    const hashed = await hashedPassword(data.password)
 
     const user = await createUser({
         ...data,
@@ -34,8 +34,14 @@ export const loginService = async (email, password) => {
   const user = await findUserByEmail(email)
   if (!user) throw new ApiError(401, "Invalid credentials")
 
+  if (!user.password_hash) {
+  throw new ApiError(400, "This account uses Google login. Please continue with Google.")
+}
+
   const valid = await comparePassword(password, user.password_hash)
   if (!valid) throw new ApiError(401, "Invalid credentials")
+
+
 
   const token = generateToken({
     id: user.id,
@@ -70,7 +76,7 @@ export const resetPasswordService = async(token, newPassword) => {
     if(!resetEntry)
         throw new ApiError(400, "Invalid or expired token")
 
-    const hashed = await hashPassword(newPassword)
+    const hashed = await hashedPassword(newPassword)
 
   await updatePassword(resetEntry.email, hashed);
   await deleteResetToken(token);

@@ -1,4 +1,4 @@
-import ApiError from "../utils/ApiError.js";
+import { ApiError } from "../utils/ApiError.js";
 import { verifyToken } from "../utils/jwt.js";
 
 const authMiddleware = (req, res, next) => {
