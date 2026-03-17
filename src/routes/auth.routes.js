@@ -35,10 +35,8 @@ router.get(
       role: req.user.role,
     })
 
-    //rrdirecting to frontend
-      return res.redirect(
-      `http://localhost:3000/auth-success?token=${token}`
-    )
+    //redirecting to frontend
+      res.redirect(`http://127.0.0.1:5500/dashboard.html?token=${token}`)
   }
 )
 export default router

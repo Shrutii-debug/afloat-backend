@@ -55,7 +55,7 @@ export const countTodayClasses = async (department, year, day) => {
         JOIN subjects s ON t.subject_id = s.id
         WHERE s.department = $1
         AND s.year = $2
-        AND t.day_of_week = $3`
+        AND t.day_of_week = $3`,
         [department, year, day]
     )
 
